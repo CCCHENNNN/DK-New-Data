@@ -1,0 +1,786 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Lab4\_studentsttt}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Data import}\label{data-import}
+
+\subsection{Question 0 - Get common wikidata
+occupations}\label{question-0---get-common-wikidata-occupations}
+
+\begin{quote}
+Write a sparql query that retrieves the top 100 occupations on wikidata
+(wikidata property P106).
+\end{quote}
+
+You may use the interface https://query.wikidata.org/ to try different
+queries. Here are some example sparql queries:
+https://www.wikidata.org/wiki/Wikidata:SPARQL\_query\_service/queries/examples
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{select ?o}
+        \PY{l+s+s2}{where }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{  ?person wdt:P106 ?o.}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{group by ?o}
+        \PY{l+s+s2}{order by desc(count(?person)) limit 100}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    The following assertion should pass if your answer is correct.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+        
+        \PY{n}{occupations} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q82955}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q937857}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q36180}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q33999}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1650915}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1028181}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1930187}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q177220}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1622272}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q49757}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q36834}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q40348}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q47064}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q639669}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10800557}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q201788}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2526255}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q43845}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q28389}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q42973}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10871364}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q39631}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q193391}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q482980}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q483501}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q11513337}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q3665646}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q12299841}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q19204627}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q16533}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q81096}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q11774891}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q188094}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1281618}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q333634}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q189290}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q250867}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q33231}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2259451}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q42603}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q628099}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q37226}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2309784}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q901}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2066131}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q6625963}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10798782}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2374149}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q170790}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q4610556}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q185351}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q486748}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q3055126}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q753110}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q4964182}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q169470}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q158852}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1234713}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q14089670}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10873124}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q3282637}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q593644}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q947873}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q13414980}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q131524}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q11338576}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q15117302}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q488205}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q14467526}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q183945}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10843402}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q13382576}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q13141064}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q214917}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q855091}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q644687}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q19595175}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q121594}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2865819}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q16010345}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1231865}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2405480}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q350979}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q3400985}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q13365117}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q10833314}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q3621491}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q15981151}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q212980}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q16145150}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q1792450}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q15296811}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q15627169}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2306091}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q4263842}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q806798}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q5716684}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q2516866}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q212238}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q131512}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{evalSparql}\PY{p}{(}\PY{n}{query}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{requests}\PY{o}{.}\PY{n}{post}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://query.wikidata.org/sparql}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{query}\PY{p}{,} \PY{n}{headers}\PY{o}{=}\PY{p}{\PYZob{}}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{content\PYZhy{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{application/sparql\PYZhy{}query}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{application/json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZhy{}agent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{User:Tpt}\PY{l+s+s1}{\PYZsq{}}
+            \PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bindings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{myOccupations} \PY{o}{=} \PY{p}{[}\PY{n}{val}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://www.wikidata.org/entity/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                         \PY{k}{for} \PY{n}{val} \PY{o+ow}{in} \PY{n}{evalSparql}\PY{p}{(}\PY{n}{query}\PY{p}{)}\PY{p}{]}
+        \PY{k}{assert}\PY{p}{(}\PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{occupations}\PY{p}{)} \PY{o}{==} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{myOccupations}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Occupations labels}\label{occupations-labels}
+
+We load the labels of the occupations from Wikidata
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{occupations\PYZus{}label} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{SELECT DISTINCT ?o ?oLabel }
+        \PY{l+s+s2}{WHERE }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ }
+        \PY{l+s+s2}{    VALUES ?o }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZcb{} }
+        \PY{l+s+s2}{    SERVICE wikibase:label }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ bd:serviceParam wikibase:language }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{en}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{. \PYZcb{}}
+        \PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{\PYZpc{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wd:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{o} \PY{k}{for} \PY{n}{o} \PY{o+ow}{in} \PY{n}{occupations}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{result} \PY{o+ow}{in} \PY{n}{evalSparql}\PY{p}{(}\PY{n}{query}\PY{p}{)}\PY{p}{:}
+            \PY{n}{occupations\PYZus{}label}\PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://www.wikidata.org/entity/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oLabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{occupations\PYZus{}label}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Q82955': 'politician', 'Q121594': 'professor', 'Q177220': 'singer', 'Q169470': 'physicist', 'Q170790': 'mathematician', 'Q81096': 'engineer', 'Q201788': 'historian', 'Q188094': 'economist', 'Q212980': 'psychologist', 'Q214917': 'playwright', 'Q131524': 'entrepreneur', 'Q183945': 'record producer', 'Q193391': 'diplomat', 'Q189290': 'military officer', 'Q185351': 'jurist', 'Q350979': 'zoologist', 'Q483501': 'artist', 'Q482980': 'author', 'Q333634': 'translator', 'Q158852': 'conductor', 'Q486748': 'pianist', 'Q488205': 'singer-songwriter', 'Q250867': 'Catholic priest', 'Q593644': 'chemist', 'Q639669': 'musician', 'Q644687': 'illustrator', 'Q628099': 'association football manager', 'Q212238': 'civil servant', 'Q855091': 'guitarist', 'Q937857': 'association football player', 'Q947873': 'television presenter', 'Q806798': 'banker', 'Q1028181': 'painter', 'Q753110': 'songwriter', 'Q1234713': 'theologian', 'Q1281618': 'sculptor', 'Q1622272': 'university teacher', 'Q1792450': 'art historian', 'Q1650915': 'researcher', 'Q1930187': 'journalist', 'Q2306091': 'sociologist', 'Q2374149': 'botanist', 'Q2526255': 'film director', 'Q2516866': 'publisher', 'Q2066131': 'athlete', 'Q2405480': 'voice actor', 'Q1231865': 'pedagogue', 'Q2865819': 'opera singer', 'Q2259451': 'stage actor', 'Q3282637': 'film producer', 'Q3055126': 'entomologist', 'Q3400985': 'academic', 'Q3665646': 'basketball player', 'Q3621491': 'archaeologist', 'Q4610556': 'model', 'Q4263842': 'literary critic', 'Q4964182': 'philosopher', 'Q5716684': 'dancer', 'Q6625963': 'novelist', 'Q10843402': 'swimmer', 'Q10833314': 'tennis player', 'Q10871364': 'baseball player', 'Q10798782': 'television actor', 'Q10873124': 'chess player', 'Q10800557': 'film actor', 'Q11338576': 'boxer', 'Q11513337': 'athletics competitor', 'Q2309784': 'sport cyclist', 'Q11774891': 'ice hockey player', 'Q12299841': 'cricketer', 'Q13141064': 'badminton player', 'Q13365117': 'handball player', 'Q13414980': 'Australian rules footballer', 'Q14089670': 'rugby union player', 'Q14467526': 'linguist', 'Q15117302': 'volleyball player', 'Q15627169': 'trade unionist', 'Q15981151': 'jazz musician', 'Q16010345': 'performer', 'Q131512': 'agriculturer', 'Q13382576': 'rower', 'Q19204627': 'American football player', 'Q15296811': 'drawer', 'Q19595175': 'amateur wrestler', 'Q16145150': 'music pedagogue', 'Q901': 'scientist', 'Q33999': 'actor', 'Q33231': 'photographer', 'Q36834': 'composer', 'Q16533': 'judge', 'Q40348': 'lawyer', 'Q36180': 'writer', 'Q42973': 'architect', 'Q43845': 'businessperson', 'Q39631': 'physician', 'Q28389': 'screenwriter', 'Q42603': 'priest', 'Q49757': 'poet', 'Q37226': 'teacher', 'Q47064': 'military personnel'\}
+
+    \end{Verbatim}
+
+    We load \emph{all} the labels of the occupations from Wikipedia
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{occupations\PYZus{}labels} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{k}\PY{p}{:} \PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{occupations\PYZus{}label}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{SELECT ?o ?altLabel }
+        \PY{l+s+s2}{WHERE }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{  VALUES ?o }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZcb{}}
+        \PY{l+s+s2}{  ?o skos:altLabel ?altLabel . FILTER (lang(?altLabel) = }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{en}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}
+        \PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}} \PY{o}{\PYZpc{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wd:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{o} \PY{k}{for} \PY{n}{o} \PY{o+ow}{in} \PY{n}{occupations}\PY{p}{)} 
+        
+        \PY{k}{for} \PY{n}{result} \PY{o+ow}{in} \PY{n}{evalSparql}\PY{p}{(}\PY{n}{query}\PY{p}{)}\PY{p}{:}
+            \PY{n}{occupations\PYZus{}labels}\PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://www.wikidata.org/entity/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{altLabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{occupations\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Q82955': ['politician', 'political leader', 'polit.', 'political figure'], 'Q121594': ['professor', 'Prof.'], 'Q177220': ['singer', 'vocalist'], 'Q169470': ['physicist'], 'Q170790': ['mathematician'], 'Q81096': ['engineer'], 'Q201788': ['historian', 'historians', 'historiographer'], 'Q188094': ['economist'], 'Q212980': ['psychologist'], 'Q214917': ['playwright', 'dramatist', 'scriptwriter', 'playwrite', 'Playwright, dramatist'], 'Q131524': ['entrepreneur'], 'Q183945': ['record producer', 'music producer'], 'Q193391': ['diplomat'], 'Q189290': ['military officer', 'army officer', 'officer'], 'Q185351': ['jurist'], 'Q350979': ['zoologist', 'zooligist'], 'Q483501': ['artist'], 'Q482980': ['author'], 'Q333634': ['translator'], 'Q158852': ['conductor', 'Conducting'], 'Q486748': ['pianist'], 'Q488205': ['singer-songwriter', 'singer/songwriter', 'singer songwriter', 'singersongwriter'], 'Q250867': ['Catholic priest', 'Roman Catholic priest', 'Catholic presbyter', 'Roman Catholic presbyter'], 'Q593644': ['chemist', 'chemists'], 'Q639669': ['musician'], 'Q644687': ['illustrator'], 'Q628099': ['association football manager', 'football manager', 'association football coach', 'football coach', 'soccer coach', 'soccer manager'], 'Q212238': ['civil servant', 'public servant'], 'Q855091': ['guitarist', 'guitar player'], 'Q937857': ['association football player', 'footballer', 'football player', 'association footballer', 'soccer player'], 'Q947873': ['television presenter', 'hostess', 'host'], 'Q806798': ['banker', 'Private Banker', 'private sector banker'], 'Q1028181': ['painter'], 'Q753110': ['songwriter', 'song writer'], 'Q1234713': ['theologian', 'religious scholar'], 'Q1281618': ['sculptor'], 'Q1622272': ['university teacher', 'college lecturer', 'college professor', 'professor', 'lecturer', 'university teachers'], 'Q1792450': ['art historian'], 'Q1650915': ['researcher'], 'Q1930187': ['journalist', 'journo'], 'Q2306091': ['sociologist'], 'Q2374149': ['botanist', 'botany', 'plant scientist'], 'Q2526255': ['film director', 'director', 'movie director'], 'Q2516866': ['publisher'], 'Q2066131': ['athlete', 'sportsperson', 'sportsman', 'sportswoman'], 'Q2405480': ['voice actor', 'voice actress', 'voice artist'], 'Q1231865': ['pedagogue', 'educationalist'], 'Q2865819': ['opera singer'], 'Q2259451': ['stage actor', 'stage actress', 'theater actor', 'theater actress', 'theatre actor', 'theatre actress'], 'Q3282637': ['film producer', 'producer', 'movie producer'], 'Q3055126': ['entomologist'], 'Q3400985': ['academic', 'college graduates', 'university graduates'], 'Q3665646': ['basketball player', 'professional basketball player', 'basketballer'], 'Q3621491': ['archaeologist', 'archeologist'], 'Q4610556': ['model', 'fashion model', 'mannequin'], 'Q4263842': ['literary critic', 'book critic', 'literary critique'], 'Q4964182': ['philosopher'], 'Q5716684': ['dancer'], 'Q6625963': ['novelist'], 'Q10843402': ['swimmer'], 'Q10833314': ['tennis player'], 'Q10871364': ['baseball player'], 'Q10798782': ['television actor', 'actor', 'actress', 'television actress', 'TV actor', 'TV actress'], 'Q10873124': ['chess player'], 'Q10800557': ['film actor', 'film actress', 'movie actor', 'movie actress'], 'Q11338576': ['boxer', 'pugilist'], 'Q11513337': ['athletics competitor', 'track and field athlete', 'athlete (restricted sense)'], 'Q2309784': ['sport cyclist', 'racing cyclist', 'sport bicyclist', 'sport biker'], 'Q11774891': ['ice hockey player', 'hockey player'], 'Q12299841': ['cricketer', 'cricket player'], 'Q13141064': ['badminton player'], 'Q13365117': ['handball player', 'handballer'], 'Q13414980': ['Australian rules footballer', 'Australian footballer', 'Australian rules football player', 'Australian-rules football player'], 'Q14089670': ['rugby union player'], 'Q14467526': ['linguist', 'linguistic scholar'], 'Q15117302': ['volleyball player', 'volleyballer'], 'Q15627169': ['trade unionist', 'labor unionist', 'labour unionist'], 'Q15981151': ['jazz musician'], 'Q16010345': ['performer', 'performing artist', 'scenic artist'], 'Q131512': ['agriculturer', 'farmer', 'agriculturist', 'cultivator', 'grower', 'raiser'], 'Q13382576': ['rower', 'oarsman', 'oarswoman'], 'Q19204627': ['American football player', 'football player'], 'Q15296811': ['drawer', 'illustrator', 'draughtsperson', 'draughtsman', 'draftsperson', 'draftsman', 'draftswoman', 'drafter'], 'Q19595175': ['amateur wrestler', 'wrestler'], 'Q16145150': ['music pedagogue', 'music teacher'], 'Q901': ['scientist', 'natural philosopher'], 'Q33999': ['actor', 'actress', 'actors', 'actresses'], 'Q33231': ['photographer'], 'Q36834': ['composer'], 'Q16533': ['judge', 'magistrate', 'justice', 'judges', 'justices'], 'Q40348': ['lawyer', 'attorney', 'Jurisprudente'], 'Q36180': ['writer', 'author', 'writers', 'authors'], 'Q42973': ['architect'], 'Q43845': ['businessperson', 'businessman', 'dealer', 'business person', 'business woman', 'businesswoman', 'business man'], 'Q39631': ['physician', 'doctor', 'medical doctor', 'physicians'], 'Q28389': ['screenwriter', 'writer', 'screen writer', 'scriptwriter', 'scenarist', 'film writer', 'tv writer', 'script writer'], 'Q42603': ['priest', 'priestess', 'reverend'], 'Q49757': ['poet', 'bard', 'poetess'], 'Q37226': ['teacher', 'professor', 'educator', 'schoolmaster', 'schoolmistress', 'school teacher'], 'Q47064': ['military personnel']\}
+
+    \end{Verbatim}
+
+    \subsection{Wikipedia articles}\label{wikipedia-articles}
+
+Here we load the training and the testing sets. To save memory space we
+use a generator that will read the file each time we iterate over the
+training or the testing examples.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{gzip}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        
+        \PY{k}{def} \PY{n+nf}{loadJson}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+            \PY{k}{with} \PY{n}{gzip}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fp}\PY{p}{:}
+                \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{fp}\PY{p}{:}
+                    \PY{k}{yield} \PY{n}{json}\PY{o}{.}\PY{n}{loads}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+        
+        \PY{k}{class} \PY{n+nc}{MakeIter}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{generator\PYZus{}func}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generator\PYZus{}func} \PY{o}{=} \PY{n}{generator\PYZus{}func}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{kwargs} \PY{o}{=} \PY{n}{kwargs}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generator\PYZus{}func}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{kwargs}\PY{p}{)}
+        
+        \PY{n}{training\PYZus{}set} \PY{o}{=} \PY{n}{MakeIter}\PY{p}{(}\PY{n}{loadJson}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wiki\PYZhy{}train.json.gz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{testing\PYZus{}set} \PY{o}{=} \PY{n}{MakeIter}\PY{p}{(}\PY{n}{loadJson}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wiki\PYZhy{}test.json.gz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Extract occupations from
+summaries}\label{extract-occupations-from-summaries}
+
+    \subsection{Task 1 - Dictionnary
+extraction}\label{task-1---dictionnary-extraction}
+
+\begin{quote}
+Using \texttt{occupations\_labels} dictionnary, identify all occupations
+for each articles. Complete the function below to evaluate the accuracy
+of such approach. It will serve as a baseline.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{predict\PYZus{}dictionnary}\PY{p}{(}\PY{n}{example}\PY{p}{,} \PY{n}{occupations\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} example[\PYZsq{}summary\PYZsq{}] contains the summary of the article}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} Code here}
+            \PY{n}{summary} \PY{o}{=} \PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+            \PY{n}{all\PYZus{}occupations} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{o+ow}{in} \PY{n}{occupations\PYZus{}labels}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{value}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{v} \PY{o+ow}{in} \PY{n}{summary}\PY{p}{:}
+                        \PY{n}{all\PYZus{}occupations}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+                        \PY{k}{break}
+            \PY{k}{return} \PY{n}{all\PYZus{}occupations}
+            
+        \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}dictionnary}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{,} \PY{n}{occupations\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+            \PY{n}{nexample} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{accuracy} \PY{o}{=} \PY{l+m+mf}{0.}
+            \PY{n}{prediction} \PY{o}{=} \PY{k+kc}{None}
+            \PY{k}{for} \PY{n}{example} \PY{o+ow}{in} \PY{n}{training\PYZus{}set}\PY{p}{:}
+                \PY{n}{prediction} \PY{o}{=} \PY{n}{predict\PYZus{}dictionnary}\PY{p}{(}\PY{n}{example}\PY{p}{,} \PY{n}{occupations\PYZus{}labels}\PY{p}{)}
+                \PY{n}{p} \PY{o}{=} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{prediction}\PY{p}{)}
+                \PY{n}{g} \PY{o}{=} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{accuracy} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{1.}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{p} \PY{o}{\PYZam{}} \PY{n}{g}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{p} \PY{o}{|} \PY{n}{g}\PY{p}{)}
+                \PY{n}{nexample} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{accuracy} \PY{o}{/} \PY{n}{nexample}
+        
+        \PY{n}{evaluate\PYZus{}dictionnary}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{,} \PY{n}{occupations\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 0.4739681674799319
+\end{Verbatim}
+            
+    \subsection{Task 2 - Simple neural
+network}\label{task-2---simple-neural-network}
+
+    We load the articles "summary" and we take the average of the word
+vectors. This is done with spacy loaded with the fast text vectors. To
+do the installation/loading {[}takes 8-10 minutes, dl 1.2Go{]}
+
+\begin{verbatim}
+pip3 install spacy
+wget https://s3-us-west-1.amazonaws.com/fasttext-vectors/cc.en.300.vec.gz
+python3 -m spacy init-model en /tmp/en_vectors_wiki_lg --vectors-loc cc.en.300.vec.gz
+rm cc.en.300.vec.gz
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{spacy}
+        \PY{n}{nlp} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/tmp/en\PYZus{}vectors\PYZus{}wiki\PYZus{}lg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{vectorize}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{nlp}\PY{p}{)}\PY{p}{:}
+            \PY{n}{result} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{k}{for} \PY{n}{example} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+                \PY{n}{doc} \PY{o}{=} \PY{n}{nlp}\PY{p}{(}\PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{disable}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagger}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{result}\PY{p}{[}\PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n}{result}\PY{p}{[}\PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{doc}\PY{o}{.}\PY{n}{vector}
+                \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{example}\PY{p}{:}
+                    \PY{n}{result}\PY{p}{[}\PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{example}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{return} \PY{n}{result}
+        
+        \PY{n}{vectorized\PYZus{}training} \PY{o}{=} \PY{n}{vectorize}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{,} \PY{n}{nlp}\PY{p}{)}
+        \PY{n}{vectorized\PYZus{}testing} \PY{o}{=} \PY{n}{vectorize}\PY{p}{(}\PY{n}{testing\PYZus{}set}\PY{p}{,} \PY{n}{nlp}\PY{p}{)}
+        \PY{n}{nlp} \PY{o}{=} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{vectorized\PYZus{}training}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{George\PYZus{}Washington}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-1.45162819e-02 -2.45802402e-02 -4.59302496e-03 -4.09372151e-02
+ -4.47662771e-02 -4.18604538e-03 -3.15232435e-03 -1.44802360e-02
+ -1.68499984e-02 -3.69651243e-03 -1.16255814e-02  1.43651171e-02
+  2.02674349e-03 -5.88953542e-03 -2.17011590e-02  1.02302311e-02
+ -2.49313917e-02 -5.65232616e-03 -2.25581434e-02  8.29069968e-03
+ -1.44069805e-03  2.25197673e-02 -6.81395701e-04 -1.37232570e-02
+ -1.26674427e-02 -3.35569866e-02  1.10627888e-02 -2.37208814e-03
+ -2.30000000e-02  7.58616179e-02 -5.03487710e-04 -2.51116175e-02
+  9.26511642e-03 -2.52558179e-02 -1.51058156e-02 -9.51627828e-03
+  1.17523270e-02  1.22441910e-03  1.08139520e-03  3.39302444e-03
+  2.20116391e-03  1.46860480e-02 -1.43686021e-02  5.76395402e-03
+  1.74162779e-02 -4.76220921e-02 -1.72569733e-02 -1.49988411e-02
+ -1.77732538e-02  1.58907007e-02 -7.23255938e-03  2.43825577e-02
+ -2.73104683e-02 -3.67430188e-02 -1.48802334e-02 -1.34825567e-02
+ -3.14348824e-02  1.95930228e-02 -6.68605033e-04 -9.24302172e-03
+  1.56976283e-04 -1.65674444e-02 -1.30372085e-02  6.16298130e-05
+ -3.63139645e-03  2.74534873e-03 -1.62697677e-02 -4.70697694e-03
+  5.48139494e-03  4.39302297e-03  4.65523303e-02  2.29872130e-02
+  2.72058025e-02 -5.52790612e-03  2.19720937e-02 -4.41581383e-02
+  1.33255811e-03  1.20244222e-02  3.49267460e-02  3.76593024e-02
+  8.65232572e-03 -6.52325572e-03 -1.90407019e-02  1.03569757e-02
+  1.09301973e-03 -6.28488278e-03  3.98965068e-02 -3.81744131e-02
+ -1.35965087e-02  1.74023230e-02 -1.48686031e-02  5.78604685e-03
+ -8.59186146e-03  4.74418374e-03  1.54720917e-02 -6.42325589e-03
+ -1.58430226e-02 -2.98779178e-02 -1.54255824e-02  3.28209326e-02
+  2.43825577e-02  1.32907031e-03  1.80883706e-02 -2.72825565e-02
+  9.28488653e-03 -7.39418622e-03 -7.98023026e-03  1.84244160e-02
+ -9.45350039e-04 -1.16825579e-02  1.15813862e-03 -2.10464321e-04
+ -3.00813979e-03  4.75407019e-02 -8.32790602e-03  4.11511678e-03
+ -1.25604663e-02  8.92209262e-03  7.64534995e-03 -2.65965052e-02
+  6.58837147e-03 -1.12011610e-02 -9.68022924e-03  1.60023291e-02
+  1.61629519e-04  3.20906974e-02 -1.59848798e-02  1.14162825e-02
+ -2.40430199e-02  5.39906919e-02 -4.80814092e-03  3.02209193e-03
+  5.89418598e-03 -3.94418649e-03 -2.68058274e-02 -8.98256153e-03
+ -2.94616278e-02  3.90697829e-03  4.68255766e-03  3.96162830e-03
+ -2.68069748e-02 -2.68395394e-02 -9.76740339e-05  5.67557989e-03
+  4.43197712e-02 -1.38953477e-02 -3.69888335e-01  1.04639539e-02
+  1.55372089e-02 -1.35093015e-02 -8.09988379e-02  2.67802346e-02
+  2.21941881e-02 -7.86627829e-03 -1.00313956e-02  1.52511625e-02
+  1.45744160e-01  4.61395411e-03  7.26162829e-03  3.14453505e-02
+ -7.95465056e-03 -1.25395320e-02  6.95348764e-03 -2.48023286e-03
+  6.17325725e-03  1.26546472e-02  1.03558144e-02 -1.21616265e-02
+ -1.27907039e-03 -1.99348871e-02 -9.01860371e-03  4.25581448e-03
+  7.45790750e-02  1.02186035e-02 -9.93953645e-03  1.72848776e-02
+ -1.03779081e-02  1.46616297e-02 -3.75465187e-03 -2.26953458e-02
+  5.36046689e-04  6.64511696e-02 -2.53790785e-02  5.80627881e-02
+ -1.42732579e-02  9.22453254e-02 -1.12825576e-02 -2.51837187e-02
+  3.90697736e-03  5.96395321e-03 -3.02476659e-02  2.63883732e-02
+ -1.69488378e-02  7.39418576e-03  1.60662793e-02 -1.68313961e-02
+ -8.25814065e-03 -1.36965141e-02  7.30697624e-03  1.63453538e-02
+ -4.15407047e-02  1.05633713e-01  1.53325591e-02  6.63023209e-03
+  3.93279046e-02 -1.27697680e-02 -5.95697621e-03 -8.67441762e-03
+  1.58593040e-02  9.42093134e-03 -4.15697647e-03  1.34639572e-02
+ -4.10383604e-02 -2.82325619e-03 -2.43790708e-02 -4.02325485e-03
+  1.65058132e-02  4.21395432e-03  1.25813941e-02  1.64744183e-02
+ -2.81162816e-03  1.34813897e-02 -8.19302350e-03 -7.04767322e-03
+  1.67139638e-02  1.43581396e-02  1.20023256e-02  4.96162800e-03
+  1.76325571e-02 -7.07674446e-03 -4.24197726e-02 -2.34697610e-02
+ -1.86058115e-02 -2.32790736e-03  2.98906974e-02  1.53604464e-03
+  1.95941851e-02 -2.67104693e-02 -1.12453466e-02 -2.54534930e-03
+ -4.29302268e-03  3.56558077e-02 -4.36046888e-04 -8.16406980e-02
+  5.04779041e-01 -2.18813960e-02  1.15883695e-02  2.14848872e-02
+  7.80581404e-03  1.55116236e-02 -1.11523261e-02  4.61628864e-04
+  1.72918607e-02  1.43034859e-02  2.05546506e-02 -8.23488459e-03
+ -3.16290706e-02 -4.83953534e-03 -1.82697661e-02  2.02907110e-03
+ -3.51163093e-04  1.10220918e-02 -8.54755938e-02 -2.68255756e-03
+  1.83174424e-02  1.91116314e-02 -4.73488262e-03 -8.08255840e-03
+  1.37906978e-02 -7.76046468e-03 -2.82767452e-02 -2.99069774e-03
+  1.06569799e-02 -5.99999772e-03  1.11883730e-02  4.28720983e-03
+ -3.12255807e-02 -8.07186142e-02  8.59302282e-03 -8.11744668e-03
+ -5.36279054e-03  1.87046509e-02 -1.10972092e-01 -3.07988375e-02
+  9.47441999e-03 -1.03662787e-02  1.16337193e-02  3.22093032e-02
+ -2.69790720e-02  2.25430205e-02 -1.49802361e-02 -1.05290683e-02
+ -4.36534919e-02  6.34883530e-04 -2.83197612e-02 -1.37674408e-02
+ -1.50220934e-02  1.30851150e-01 -1.22430259e-02  2.38767453e-02]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} We encode the data}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{inputs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{vectorized\PYZus{}training}\PY{p}{[}\PY{n}{article}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{article} \PY{o+ow}{in} \PY{n}{vectorized\PYZus{}training}\PY{p}{]}\PY{p}{)}
+        \PY{n}{outputs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{occupation} \PY{o+ow}{in} \PY{n}{vectorized\PYZus{}training}\PY{p}{[}\PY{n}{article}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+                            \PY{k}{for} \PY{n}{occupation} \PY{o+ow}{in} \PY{n}{occupations} \PY{p}{]} \PY{k}{for} \PY{n}{article} \PY{o+ow}{in} \PY{n}{vectorized\PYZus{}training}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{inputs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+300
+100
+
+    \end{Verbatim}
+
+    \begin{quote}
+Using keras, define a sequential neural network with two layers. Use
+categorical\_crossentropy as a loss function and softmax as the
+activation function of the output layer
+\end{quote}
+
+You can look into the documentation here:
+https://keras.io/getting-started/sequential-model-guide/
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{tensorflow} \PY{k}{import} \PY{n}{keras}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Activation}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} Compile the model here}
+        \PY{n}{inputSize} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{inputs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{outputSize} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{[}
+            \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{n}{inputSize}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Dense}\PY{p}{(}\PY{n}{outputSize}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+        \PY{p}{]}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ModuleNotFoundError                       Traceback (most recent call last)
+
+        <ipython-input-1-b2264ec89386> in <module>
+    ----> 1 from tensorflow import keras
+          2 from keras.models import Sequential
+          3 from keras.layers import Dense, Activation
+          4 \#\# Compile the model here
+          5 inputSize = len(inputs[0])
+
+
+        ModuleNotFoundError: No module named 'tensorflow'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Then train the model on ```inputs``` and ```outputs```}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{inputs}\PY{p}{,} \PY{n}{outputs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-18-814ee5bff0be> in <module>
+          1 \#\# Then train the model on ```inputs``` and ```outputs```
+    ----> 2 model.fit(inputs, outputs)
+    
+
+        NameError: name 'model' is not defined
+
+    \end{Verbatim}
+
+    \begin{quote}
+Complete the function predict: output the list of occupations where the
+corresponding neuron on the output layer of our model has a value
+\textgreater{} 0.1
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{article\PYZus{}name}\PY{p}{,} \PY{n}{vectorized\PYZus{}dataset}\PY{p}{)}\PY{p}{:}
+             \PY{n}{prediction} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Code here}
+             \PY{n}{values} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{vectorized\PYZus{}dataset}\PY{p}{[}\PY{n}{article\PYZus{}name}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{values}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.1}\PY{p}{:}
+                     \PY{n}{prediction}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{occupations}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{prediction}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elvis\PYZus{}Presley}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vectorized\PYZus{}training}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} should be \PYZob{}\PYZsq{}Q177220\PYZsq{}\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-29-6462291ffe24> in <module>
+          4     return prediction
+          5 
+    ----> 6 print(predict(model, 'Elvis\_Presley', vectorized\_training))
+          7 \# should be a subset of \{'Q33999', 'Q177220', 'Q639669'\}
+
+
+        NameError: name 'model' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}nn}\PY{p}{(}\PY{n}{vectorized\PYZus{}training}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{n}{nexample} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{accuracy} \PY{o}{=} \PY{l+m+mf}{0.}
+            \PY{n}{prediction} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{article\PYZus{}name} \PY{o+ow}{in} \PY{n}{vectorized\PYZus{}training}\PY{p}{:}
+                \PY{n}{prediction} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{article\PYZus{}name}\PY{p}{,} \PY{n}{vectorized\PYZus{}training}\PY{p}{)}
+                \PY{n}{p} \PY{o}{=} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{prediction}\PY{p}{)}
+                \PY{n}{g} \PY{o}{=} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n}{vectorized\PYZus{}training}\PY{p}{[}\PY{n}{article\PYZus{}name}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{accuracy} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{1.}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{p} \PY{o}{\PYZam{}} \PY{n}{g}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{p} \PY{o}{|} \PY{n}{g}\PY{p}{)}
+                \PY{n}{nexample} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{accuracy} \PY{o}{/} \PY{n}{nexample}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{evaluate\PYZus{}nn}\PY{p}{(}\PY{n}{vectorized\PYZus{}training}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Task 3 - Your approach}\label{task-3---your-approach}
+
+\begin{quote}
+Propose your own approach (extend previous examples or use original
+approaches) to improve the accuracy for this task. Apply it to the
+testing set and put the result as a json file with your submission.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{modelNew} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{[}
+            \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{280}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{n}{inputSize}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Dense}\PY{p}{(}\PY{n}{outputSize}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+        \PY{p}{]}\PY{p}{)}
+        \PY{n}{modelNew}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{modelNew}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{inputs}\PY{p}{,} \PY{n}{outputs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{predictNew}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{article\PYZus{}name}\PY{p}{,} \PY{n}{vectorized\PYZus{}dataset}\PY{p}{)}\PY{p}{:}
+            \PY{n}{prediction} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} Code here}
+            \PY{n}{values} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{vectorized\PYZus{}dataset}\PY{p}{[}\PY{n}{article\PYZus{}name}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{values}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.2}\PY{p}{:}
+                    \PY{n}{prediction}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{occupations}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{prediction}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}nnNew}\PY{p}{(}\PY{n}{vectorized\PYZus{}testing}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{n}{nexample} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{accuracy} \PY{o}{=} \PY{l+m+mf}{0.}
+            \PY{n}{prediction} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{testset\PYZus{}solutions} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{k}{for} \PY{n}{article\PYZus{}name} \PY{o+ow}{in} \PY{n}{vectorized\PYZus{}testing}\PY{p}{:}
+                \PY{n}{prediction} \PY{o}{=} \PY{n}{predictNew}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{article\PYZus{}name}\PY{p}{,} \PY{n}{vectorized\PYZus{}testing}\PY{p}{)}
+                \PY{n}{testset\PYZus{}solutions}\PY{p}{[}\PY{n}{article\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{prediction}
+            \PY{k}{return} \PY{n}{testset\PYZus{}solution}
+\end{Verbatim}
+
+
+    \textbf{\emph{IMPORTANT}} Output format of requested file
+'results.json.gz': each line must be a json string representing a
+dictionnary: \textgreater{}
+\texttt{\{\ \textquotesingle{}title\textquotesingle{}:\ THE\_ARTICLE\_NAME,\ \textquotesingle{}prediction\textquotesingle{}:\ {[}THE\_LIST\_OF\_OCCUPATIONS{]}\}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} For example if testset\PYZus{}solutions is a dictionnary: article\PYZus{}name (key) \PYZhy{}\PYZgt{} prediction\PYZus{}list (value) use this function:}
+         \PY{k}{def} \PY{n+nf}{export}\PY{p}{(}\PY{n}{testset\PYZus{}solutions}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n}{gzip}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results.json.gz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{article} \PY{o+ow}{in} \PY{n}{testset\PYZus{}solutions}\PY{p}{:}
+                     \PY{n}{output}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{article}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{testset\PYZus{}solutions}\PY{p}{[}\PY{n}{article}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{export}\PY{p}{(}\PY{n}{evaluate\PYZus{}nnNew}\PY{p}{(}\PY{n}{vectorized\PYZus{}testing}\PY{p}{,} \PY{n}{modelNew}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
